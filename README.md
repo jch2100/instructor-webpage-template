@@ -5,11 +5,11 @@
 
 ---
 
-## 전체 흐름 (7단계)
+## 전체 흐름 (8단계)
 
 ```
-1. 클론                 git clone ... → cd instructor-webpage-template
-2. 에이전트 실행         Claude Code / Codex / Antigravity 중 하나 실행
+1. 에이전트 켜기         Claude Code / Codex / Antigravity 중 하나 실행
+2. 템플릿 클론 요청       에이전트에게 "이 repo 클론해줘" + URL
 3. "시작" 입력          → AI가 인터뷰를 시작합니다
 4. input/ 에 자료 업로드  프로필 사진, 블로그 글, 이력서 등
 5. 인터뷰 답변          AI가 묻는 질문에 한국어로 답변
@@ -20,33 +20,38 @@
 
 ---
 
-## 1. 클론 (각 에이전트별 1회만)
+## 1. 에이전트 켜기
 
-### Claude Code 사용자
-```bash
-git clone https://github.com/jch2100/instructor-webpage-template.git
-cd instructor-webpage-template
-claude
-```
+먼저 사용 중인 AI 코딩 에이전트를 엽니다. 셋 중 아무거나 됩니다.
 
-### Codex (OpenAI) 사용자
-```bash
-git clone https://github.com/jch2100/instructor-webpage-template.git
-cd instructor-webpage-template
-codex
-```
+- **Claude Code**: 터미널에서 `claude` 입력 (또는 IDE 확장)
+- **Codex (OpenAI)**: 터미널에서 `codex` 입력
+- **Antigravity**: 앱 실행
 
-### Antigravity 사용자
-```bash
-git clone https://github.com/jch2100/instructor-webpage-template.git
-```
-Antigravity 앱에서 `instructor-webpage-template` 폴더를 열어주세요.
-
-> **세 에이전트 모두 `AGENTS.md`를 자동으로 읽습니다.** 별도 설정 불필요.
+작업 위치는 에이전트가 알아서 정합니다. 본인이 작업할 로컬 폴더(예: `~/projects/`)나 클라우드 워크스페이스를 미리 정해두면 됩니다.
 
 ---
 
-## 2. "시작" 입력
+## 2. 템플릿 클론
+
+에이전트 채팅창에 아래 한 줄을 붙여넣으세요. 에이전트가 알아서 `git clone`과 폴더 진입까지 처리합니다.
+
+```
+https://github.com/jch2100/instructor-webpage-template.git 이 repo를 클론하고 폴더 안에서 작업해줘.
+```
+
+직접 명령어를 쓰고 싶다면:
+
+```bash
+git clone https://github.com/jch2100/instructor-webpage-template.git
+cd instructor-webpage-template
+```
+
+> **세 에이전트 모두 클론된 폴더의 `AGENTS.md`를 자동으로 읽습니다.** 별도 설정 불필요.
+
+---
+
+## 3. "시작" 입력
 
 에이전트 채팅창에 그냥 한 단어만 입력하세요:
 
@@ -63,7 +68,7 @@ AI가 자기소개 후 **3단계 인터뷰**를 시작합니다.
 
 ---
 
-## 3. `input/` 에 자료 업로드 (인터뷰 중에 안내됨)
+## 4. `input/` 에 자료 업로드 (인터뷰 중에 안내됨)
 
 ```
 input/
@@ -77,7 +82,7 @@ input/
 
 ---
 
-## 4. 인터뷰 종료 후 `output/` 검토
+## 5. 인터뷰 종료 후 `output/` 검토
 
 3개 파일이 생성됩니다:
 
@@ -97,7 +102,7 @@ output/
 
 ---
 
-## 5. "사이트 만들어줘"
+## 6. "사이트 만들어줘"
 
 채팅창에 입력:
 
@@ -127,7 +132,7 @@ output/site/
 
 ---
 
-## 6. 디자인 체크 → 수정 반복
+## 7. 디자인 체크 → 수정 반복
 
 생성된 사이트를 확인하는 가장 쉬운 방법:
 
@@ -149,17 +154,17 @@ python -m http.server 8000
 
 ---
 
-## 7. GitHub에 배포
+## 8. GitHub에 배포
 
 배포는 직접 하셔야 합니다 (각자의 GitHub 계정 필요).
 
-### 7-1. GitHub에서 빈 repo 생성
+### 8-1. GitHub에서 빈 repo 생성
 1. github.com 로그인 → 우측 상단 **+** → **New repository**
 2. 이름 예: `<your-name>-page` (예: `hong-page`)
 3. **Public** 선택 (Private는 GitHub Pages 무료 플랜에서 동작 안 함)
 4. 나머지 옵션 비워두고 **Create repository**
 
-### 7-2. `output/site/` 폴더만 push
+### 8-2. `output/site/` 폴더만 push
 
 > **중요**: 반드시 `cd output/site`로 들어간 뒤 명령어를 실행하세요.
 > 템플릿 루트(`instructor-webpage-template/`)에서 push하면 AGENTS.md, questionnaire/ 등 템플릿 파일이 같이 올라가 본인 페이지가 가려집니다.
@@ -178,14 +183,14 @@ git push -u origin main
 - 간편한 방법: [GitHub CLI](https://cli.github.com) 설치 후 `gh auth login` 한 번 실행 → 이후 `git push`가 자동 인증됨.
 - PAT 직접 사용: github.com → Settings → Developer settings → Personal access tokens → Generate. push 시 사용자명 + PAT를 입력.
 
-### 7-3. GitHub Pages 켜기
+### 8-3. GitHub Pages 켜기
 1. 본인 repo 페이지 → **Settings** → **Pages** (왼쪽 메뉴)
 2. **Source**: `Deploy from a branch`
 3. **Branch**: `main` / `/ (root)` → **Save**
 4. 1~2분 후 페이지 상단에 `Your site is live at https://<your-account>.github.io/<your-repo>/` 표시
 5. 그 URL을 클릭하면 본인 페이지가 공개됩니다.
 
-### 7-4. 수정 반영
+### 8-4. 수정 반영
 나중에 `output/site/`에서 수정한 후 (이미 `git init` 한 상태이므로 `git init` 다시 안 함):
 ```bash
 cd output/site
