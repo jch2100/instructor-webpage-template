@@ -164,10 +164,27 @@ python -m http.server 8000
 3. **Public** 선택 (Private는 GitHub Pages 무료 플랜에서 동작 안 함)
 4. 나머지 옵션 비워두고 **Create repository**
 
-### 8-2. `output/site/` 폴더만 push
+### 8-2. 만든 웹페이지를 GitHub에 올리기
 
-> **중요**: 반드시 `cd output/site`로 들어간 뒤 명령어를 실행하세요.
-> 템플릿 루트(`instructor-webpage-template/`)에서 push하면 AGENTS.md, questionnaire/ 등 템플릿 파일이 같이 올라가 본인 페이지가 가려집니다.
+**가장 쉬운 방법 — 에이전트에게 맡기기**
+
+채팅창에 아래 한 줄을 그대로 붙여넣으세요. `<your-account>`와 `<your-repo>`만 8-1에서 만든 본인 정보로 바꾸면 됩니다.
+
+```
+배포 알려줘. 내 GitHub 계정은 <your-account>이고 repo 이름은 <your-repo>야.
+output/site/ 폴더만 그 repo에 올려줘. 템플릿 파일은 같이 올라가면 안 돼.
+```
+
+> 에이전트가 `AGENTS.md`의 절차 C를 따라 `output/site/` 안에서만 작업합니다.
+> **이게 핵심**: 만든 페이지(`output/site/`)만 본인 GitHub repo로 올려야 합니다. 템플릿 폴더 통째로 올리면 README와 설정 파일이 페이지를 가립니다.
+
+**에이전트가 인증 정보를 묻는다면**
+
+GitHub은 push할 때 비밀번호 대신 **Personal Access Token(PAT)** 또는 GitHub CLI 로그인을 요구합니다.
+- **권장**: [GitHub CLI](https://cli.github.com) 설치 → 터미널에서 `gh auth login` 한 번 실행 → 이후 자동 인증.
+- **PAT 직접 사용**: github.com → Settings → Developer settings → Personal access tokens → Generate (`repo` 권한 체크). push 시 사용자명 + 발급받은 PAT 입력.
+
+**직접 명령어로 하고 싶다면 (선택)**
 
 ```bash
 cd output/site
@@ -179,9 +196,7 @@ git remote add origin https://github.com/<your-account>/<your-repo>.git
 git push -u origin main
 ```
 
-**push 시 인증**: GitHub은 비밀번호 대신 **Personal Access Token(PAT)** 을 요구합니다.
-- 간편한 방법: [GitHub CLI](https://cli.github.com) 설치 후 `gh auth login` 한 번 실행 → 이후 `git push`가 자동 인증됨.
-- PAT 직접 사용: github.com → Settings → Developer settings → Personal access tokens → Generate. push 시 사용자명 + PAT를 입력.
+> ⚠️ `cd output/site`를 빼먹고 템플릿 루트에서 명령어를 실행하면 AGENTS.md, questionnaire/ 등 템플릿 파일이 같이 올라가 본인 페이지가 가려집니다.
 
 ### 8-3. GitHub Pages 켜기
 1. 본인 repo 페이지 → **Settings** → **Pages** (왼쪽 메뉴)
@@ -190,8 +205,15 @@ git push -u origin main
 4. 1~2분 후 페이지 상단에 `Your site is live at https://<your-account>.github.io/<your-repo>/` 표시
 5. 그 URL을 클릭하면 본인 페이지가 공개됩니다.
 
-### 8-4. 수정 반영
-나중에 `output/site/`에서 수정한 후 (이미 `git init` 한 상태이므로 `git init` 다시 안 함):
+### 8-4. 나중에 수정한 내용 반영하기
+
+채팅창에 입력:
+
+```
+output/site/에서 수정한 내용을 GitHub에 다시 올려줘.
+```
+
+직접 하고 싶다면 (이미 한 번 push 했다면 `git init` 다시 안 함):
 ```bash
 cd output/site
 git add .

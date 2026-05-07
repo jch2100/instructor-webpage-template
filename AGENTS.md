@@ -109,11 +109,20 @@
 
 ## 절차 C — 배포 가이드 (트리거: "배포 알려줘")
 
-GitHub Pages 배포는 사용자가 직접 합니다. 에이전트는 README.md "7. GitHub에 배포" 섹션을 사용자 환경에 맞춰 안내합니다.
+GitHub Pages 배포는 사용자 GitHub 계정으로 진행한다. 에이전트는 README.md "8. GitHub에 배포" 섹션을 사용자 환경에 맞춰 안내한다.
+
+**에이전트의 역할**:
+- 사용자가 GitHub 계정명·repo명을 알려주면 **에이전트가 직접 git 명령어를 실행해도 된다** (사용자 로컬 머신에서 실행되는 것이므로 인증은 사용자 머신의 자격증명이 처리).
+- 단, **사용자 계정·비밀번호·PAT를 묻지 않는다**. 인증은 사용자 머신의 `gh` CLI 또는 git credential이 처리.
+- push 도중 인증 오류가 나면 사용자에게 `gh auth login` 또는 PAT 발급을 안내한다.
 
 > ⚠️ **절대 금지**: 템플릿 루트(`instructor-webpage-template/`)에서 git push하지 말 것.
 > 루트에서 push하면 AGENTS.md, questionnaire/, reference/ 등 템플릿 파일 전체가 사용자 repo에 올라간다.
-> **반드시 `output/site/` 폴더 안에서 별도 git repo를 초기화해 push한다.**
+> **반드시 `cd output/site/` 후 그 안에서 별도 git repo를 초기화해 push한다.**
+
+**사전 점검**:
+- `output/site/index.html`이 존재하는지 확인. 없으면 "절차 B(사이트 만들어줘)를 먼저 진행해야 합니다" 안내 후 중단.
+- 사용자 GitHub 계정명·repo명을 모르면 README "8-1"부터 안내.
 
 - 사용자 GitHub 계정명을 묻고 (모르면 README의 일반 절차 안내).
 - repo 이름 추천 (예: `<강사명>-page`).
@@ -138,11 +147,13 @@ git commit -m "Update site"
 git push
 ```
 
-- HTTPS push 시 GitHub 사용자명과 PAT(Personal Access Token)이 필요함을 안내. `gh auth login`이 설치돼 있다면 그쪽을 권장.
+- push 도중 `Authentication failed` 같은 오류가 나면, 사용자에게 다음 중 하나를 안내:
+  - **권장**: GitHub CLI 설치 후 `gh auth login` 1회 실행 (이후 자동 인증)
+  - **PAT**: github.com → Settings → Developer settings → Personal access tokens → Generate (`repo` 권한). push 시 사용자명 + PAT 입력.
 - Pages 활성화 단계(Settings → Pages → Branch: main / root → Save) 안내.
 - 배포 후 URL은 `https://<계정>.github.io/<repo명>/` 형태. 1~2분 후 활성화.
 
-**에이전트는 사용자의 GitHub 계정으로 push하지 않습니다.** 명령어와 화면 안내만 제공.
+**에이전트는 사용자의 자격증명(비밀번호·PAT)을 직접 받거나 입력하지 않는다.** 명령어 실행은 가능하나, 인증은 사용자 머신이 처리.
 
 ---
 
