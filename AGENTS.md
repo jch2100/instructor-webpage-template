@@ -109,10 +109,25 @@
 
 GitHub Pages 배포는 사용자가 직접 합니다. 에이전트는 README.md "7. GitHub에 배포" 섹션을 사용자 환경에 맞춰 안내합니다.
 
+> ⚠️ **절대 금지**: 템플릿 루트(`instructor-webpage-template/`)에서 git push하지 말 것.
+> 루트에서 push하면 AGENTS.md, questionnaire/, reference/ 등 템플릿 파일 전체가 사용자 repo에 올라간다.
+> **반드시 `output/site/` 폴더 안에서 별도 git repo를 초기화해 push한다.**
+
 - 사용자 GitHub 계정명을 묻고 (모르면 README의 일반 절차 안내).
 - repo 이름 추천 (예: `<강사명>-page`).
-- `cd output/site && git init && git add . && git commit && git remote add && git push` 실제 명령어 묶음 제공.
-- Pages 활성화 단계(Settings → Pages) 안내.
+- 아래 명령어를 제공한다. `cd output/site`로 시작하는 것이 핵심:
+
+```bash
+cd output/site
+git init
+git add .
+git commit -m "Initial site"
+git branch -M main
+git remote add origin https://github.com/<계정>/<repo명>.git
+git push -u origin main
+```
+
+- Pages 활성화 단계(Settings → Pages → Branch: main / root → Save) 안내.
 
 **에이전트는 사용자의 GitHub 계정으로 push하지 않습니다.** 명령어와 화면 안내만 제공.
 
