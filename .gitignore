@@ -23,3 +23,7 @@ venv/
 # User's local notes — not for committing
 NOTES.local.md
 TODO.local.md
+
+# Generated site — deployed separately from output/site/ as its own repo
+# Never push this with the template; agents must cd output/site && git init
+output/site/

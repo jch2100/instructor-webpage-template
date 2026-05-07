@@ -22,23 +22,25 @@
 
 ## 1. 클론 (각 에이전트별 1회만)
 
+> 아래 명령어의 `<repo-owner>`는 이 템플릿이 호스팅된 GitHub 계정명입니다 (본인 계정 아님). 본인 계정에 fork했다면 본인 계정명으로 바꾸세요.
+
 ### Claude Code 사용자
 ```bash
-git clone https://github.com/<your-account>/instructor-webpage-template.git
+git clone https://github.com/<repo-owner>/instructor-webpage-template.git
 cd instructor-webpage-template
 claude
 ```
 
 ### Codex (OpenAI) 사용자
 ```bash
-git clone https://github.com/<your-account>/instructor-webpage-template.git
+git clone https://github.com/<repo-owner>/instructor-webpage-template.git
 cd instructor-webpage-template
 codex
 ```
 
 ### Antigravity 사용자
 ```bash
-git clone https://github.com/<your-account>/instructor-webpage-template.git
+git clone https://github.com/<repo-owner>/instructor-webpage-template.git
 ```
 Antigravity 앱에서 `instructor-webpage-template` 폴더를 열어주세요.
 
@@ -160,6 +162,10 @@ python -m http.server 8000
 4. 나머지 옵션 비워두고 **Create repository**
 
 ### 7-2. `output/site/` 폴더만 push
+
+> **중요**: 반드시 `cd output/site`로 들어간 뒤 명령어를 실행하세요.
+> 템플릿 루트(`instructor-webpage-template/`)에서 push하면 AGENTS.md, questionnaire/ 등 템플릿 파일이 같이 올라가 본인 페이지가 가려집니다.
+
 ```bash
 cd output/site
 git init
@@ -170,6 +176,10 @@ git remote add origin https://github.com/<your-account>/<your-repo>.git
 git push -u origin main
 ```
 
+**push 시 인증**: GitHub은 비밀번호 대신 **Personal Access Token(PAT)** 을 요구합니다.
+- 간편한 방법: [GitHub CLI](https://cli.github.com) 설치 후 `gh auth login` 한 번 실행 → 이후 `git push`가 자동 인증됨.
+- PAT 직접 사용: github.com → Settings → Developer settings → Personal access tokens → Generate. push 시 사용자명 + PAT를 입력.
+
 ### 7-3. GitHub Pages 켜기
 1. 본인 repo 페이지 → **Settings** → **Pages** (왼쪽 메뉴)
 2. **Source**: `Deploy from a branch`
@@ -178,7 +188,7 @@ git push -u origin main
 5. 그 URL을 클릭하면 본인 페이지가 공개됩니다.
 
 ### 7-4. 수정 반영
-나중에 `output/site/`에서 수정한 후:
+나중에 `output/site/`에서 수정한 후 (이미 `git init` 한 상태이므로 `git init` 다시 안 함):
 ```bash
 cd output/site
 git add .
