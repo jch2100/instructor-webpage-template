@@ -22,25 +22,23 @@
 
 ## 1. 클론 (각 에이전트별 1회만)
 
-> 아래 명령어의 `<repo-owner>`는 이 템플릿이 호스팅된 GitHub 계정명입니다 (본인 계정 아님). 본인 계정에 fork했다면 본인 계정명으로 바꾸세요.
-
 ### Claude Code 사용자
 ```bash
-git clone https://github.com/<repo-owner>/instructor-webpage-template.git
+git clone https://github.com/jch2100/instructor-webpage-template.git
 cd instructor-webpage-template
 claude
 ```
 
 ### Codex (OpenAI) 사용자
 ```bash
-git clone https://github.com/<repo-owner>/instructor-webpage-template.git
+git clone https://github.com/jch2100/instructor-webpage-template.git
 cd instructor-webpage-template
 codex
 ```
 
 ### Antigravity 사용자
 ```bash
-git clone https://github.com/<repo-owner>/instructor-webpage-template.git
+git clone https://github.com/jch2100/instructor-webpage-template.git
 ```
 Antigravity 앱에서 `instructor-webpage-template` 폴더를 열어주세요.
 
