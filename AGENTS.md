@@ -89,10 +89,12 @@
    - 섹션 순서는 `output/design-brief.md`의 "섹션 순서"를 따름.
    - 카피는 `output/content-inventory.md`의 "섹션별 카피 초안"을 그대로 사용.
    - 반응형: 980px / 680px 기본 브레이크포인트.
+   - **모든 자원 경로는 상대 경로로 작성**한다. `assets/profile.jpg`, `styles.css`처럼 슬래시 없이 시작. `/assets/...` 같은 절대 경로 금지 — GitHub Pages는 `<user>.github.io/<repo>/` 서브디렉토리에서 서빙되므로 절대 경로는 깨진다.
 
 6. **검수 (필수)**
    다음 항목을 자체 점검하고 결과를 보고:
    - [ ] 모든 `<img src>`가 `assets/`로 시작 (외부 URL 0개)
+   - [ ] 모든 링크·자원이 **상대 경로** (`/`로 시작하는 절대 경로 0개)
    - [ ] `output/brand-report.md`의 "금지 톤" 위반 카피 없음
    - [ ] 첫 화면에서 강사 이름·전문 분야·문의 행동(CTA)이 보임
    - [ ] 한국어 긴 문장이 버튼·카드 밖으로 밀리지 않음 (`min-width: 0`, `clamp` 등)
@@ -115,7 +117,7 @@ GitHub Pages 배포는 사용자가 직접 합니다. 에이전트는 README.md 
 
 - 사용자 GitHub 계정명을 묻고 (모르면 README의 일반 절차 안내).
 - repo 이름 추천 (예: `<강사명>-page`).
-- 아래 명령어를 제공한다. `cd output/site`로 시작하는 것이 핵심:
+- **첫 배포**: `output/site/`에 `.git`이 없을 때:
 
 ```bash
 cd output/site
@@ -127,7 +129,18 @@ git remote add origin https://github.com/<계정>/<repo명>.git
 git push -u origin main
 ```
 
+- **재배포(수정 후)**: `output/site/.git`이 이미 있을 때:
+
+```bash
+cd output/site
+git add .
+git commit -m "Update site"
+git push
+```
+
+- HTTPS push 시 GitHub 사용자명과 PAT(Personal Access Token)이 필요함을 안내. `gh auth login`이 설치돼 있다면 그쪽을 권장.
 - Pages 활성화 단계(Settings → Pages → Branch: main / root → Save) 안내.
+- 배포 후 URL은 `https://<계정>.github.io/<repo명>/` 형태. 1~2분 후 활성화.
 
 **에이전트는 사용자의 GitHub 계정으로 push하지 않습니다.** 명령어와 화면 안내만 제공.
 
